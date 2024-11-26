@@ -25,7 +25,7 @@ jobs:
       # Build Docker Image
       - name: Build Docker Image
         run: |
-          docker build -t <your-dockerhub-username>/simple-web-app:latest .
+          docker build -t brianxian/simple-web-app:latest .
 
       # Log in to Docker Hub
       - name: Log in to Docker Hub

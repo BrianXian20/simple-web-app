@@ -46,4 +46,34 @@ jobs:
             --service my-app-service \
             --force-new-deployment
 
+    #name: CD Pipeline to AWS Fargate
+
+
+
+
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t my-app .
+          docker tag my-app:latest 188822566660.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+
+      # Step 3: Push Docker image to Amazon ECR
+      - name: Push Docker image
+        run: |
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 188822566660.dkr.ecr.us-east-1.amazonaws.com
+          docker push 188822566660.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+
+      # Step 4: Deploy to ECS
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service \
+            --cluster my-cluster \
+            --service my-app-service \
+            --force-new-deployment
+
+
  

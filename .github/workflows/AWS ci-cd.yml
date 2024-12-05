@@ -28,19 +28,4 @@ jobs:
         run: |
           docker push 188822566660.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
 
-      # Step 1: Install AWS CLI
-      - name: Install AWS CLI
-        uses: aws-actions/configure-aws-credentials@v3
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      # Step 2: Deploy to Fargate
-      - name: Deploy to Fargate
-        run: |
-          aws ecs update-service \
-            --cluster fargate-cluster \
-            --service my-app-service \
-            --force-new-deployment
-
+ 
